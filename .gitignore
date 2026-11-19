@@ -1,0 +1,6 @@
+.venv/
+__pycache__/
+.pytest_cache/
+
+# Generated experiment outputs; selected demo artifacts are tracked explicitly.
+runs/

@@ -1,0 +1,5 @@
+evaluation,split,images,ground_truth_boxes,confidence_threshold,iou_threshold,TP,FP,FN,precision,recall,F1,mAP50,mAP50_95,notes
+AP,full_test,67,171,,0.5,,,,,,,0.135349,0.040847,Ultralytics confidence-swept validation
+Operating point,full_test,67,171,0.329329,0.5,14,11,157,0.560000,0.081871,,,Threshold selected by max F1 on val16
+Rendered subset,heldout_test16,16,31,0.329329,0.5,3,3,28,0.500000,0.096774,,,Annotated predictions saved under predictions/test16_conf_val_opt
+Threshold selection,val16,16,,,0.5,,,,,,0.156792,,,Max F1 from validation confidence curve

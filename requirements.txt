@@ -24,3 +24,4 @@ efficientnet-pytorch>=0.7.1
 # Training augmentation and testing
 albumentations>=1.0.3
 pytest>=7.0.0
+ipykernel>=6.0
