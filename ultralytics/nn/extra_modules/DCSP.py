@@ -44,6 +44,7 @@ class DCNv2(nn.Module):
         self.dilation = (dilation, dilation)
         self.groups = groups
         self.deformable_groups = deformable_groups
+        self.thop_profile_unsupported = True
         self.weight = nn.Parameter(torch.empty(out_channels, in_channels, *self.kernel_size))
         self.bias = nn.Parameter(torch.empty(out_channels))
         out_channels_offset_mask = (self.deformable_groups * 3 * self.kernel_size[0] * self.kernel_size[1])

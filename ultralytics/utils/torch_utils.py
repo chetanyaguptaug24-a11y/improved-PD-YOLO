@@ -305,6 +305,8 @@ def get_flops(model, imgsz=640):
 
     try:
         model = de_parallel(model)
+        if any(getattr(module, "thop_profile_unsupported", False) for module in model.modules()):
+            return 0.0
         p = next(model.parameters())
         if not isinstance(imgsz, list):
             imgsz = [imgsz, imgsz]  # expand if int/float

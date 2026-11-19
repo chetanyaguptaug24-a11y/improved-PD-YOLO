@@ -5,8 +5,10 @@ import yaml
 from pathlib import Path
 
 from ultralytics.data.augment import WeatherAugmentation
-from ultralytics.utils.metrics import bbox_iou
+from ultralytics.utils.metrics import bbox_iou, compute_ap
 from ultralytics.utils.loss import BboxLoss
+from ultralytics.nn.extra_modules.DCSP import DCNv2
+from ultralytics.utils import torch_utils
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -50,11 +52,28 @@ def test_siou_identical_box_lowest_loss():
     assert identical.item() < separated.item()
 
 
+def test_compute_ap_works_with_current_numpy():
+    ap, _, _ = compute_ap(np.array([0.5, 1.0]), np.array([1.0, 0.5]))
+    assert np.isfinite(ap)
+    assert 0.0 <= ap <= 1.0
+
+
 def test_bbox_loss_configuration_selection():
     ciou = BboxLoss(reg_max=16, use_dfl=True, box_loss_type="ciou")
     siou = BboxLoss(reg_max=16, use_dfl=True, box_loss_type="siou")
     assert ciou.box_loss_type == "ciou"
     assert siou.box_loss_type == "siou"
+
+
+def test_flops_profiler_skips_custom_deformable_convolution(monkeypatch):
+    class ProfilerMustNotRun:
+        @staticmethod
+        def profile(*args, **kwargs):
+            raise AssertionError("THOP must not execute for custom deformable convolution")
+
+    monkeypatch.setattr(torch_utils, "thop", ProfilerMustNotRun)
+    model = torch.nn.Sequential(DCNv2(1, 1, kernel_size=1))
+    assert torch_utils.get_flops(model, imgsz=32) == 0.0
 
 
 def test_weather_reproducible_and_preserves_boxes():
