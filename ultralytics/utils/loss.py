@@ -187,11 +187,14 @@ class FocalLoss_YOLO(nn.Module):
 
 class BboxLoss(nn.Module):
 
-    def __init__(self, reg_max, use_dfl=False):
+    def __init__(self, reg_max, use_dfl=False, box_loss_type="ciou"):
         """Initialize the BboxLoss module with regularization maximum and DFL settings."""
         super().__init__()
         self.reg_max = reg_max
         self.use_dfl = use_dfl
+        if box_loss_type not in {"ciou", "siou"}:
+            raise ValueError(f"Unsupported box_loss_type={box_loss_type!r}; choose 'ciou' or 'siou'.")
+        self.box_loss_type = box_loss_type
         self.nwd_loss = False
         self.iou_ratio = 0.5
         
@@ -210,7 +213,10 @@ class BboxLoss(nn.Module):
             # wiou = self.wiou_loss(pred_bboxes[fg_mask], target_bboxes[fg_mask], ret_iou=False, ratio=0.7, d=0.0, u=0.95, **{'mpdiou_hw':mpdiou_hw[fg_mask]}).unsqueeze(-1) # Wise-MPDIoU,Wise-Inner-MPDIoU,Wise-Focaler-MPDIoU
             loss_iou = (wiou * weight).sum() / target_scores_sum
         else:
-            iou = bbox_iou(pred_bboxes[fg_mask], target_bboxes[fg_mask], xywh=False, CIoU=True)
+            if self.box_loss_type == "siou":
+                iou = bbox_iou(pred_bboxes[fg_mask], target_bboxes[fg_mask], xywh=False, SIoU=True)
+            else:
+                iou = bbox_iou(pred_bboxes[fg_mask], target_bboxes[fg_mask], xywh=False, CIoU=True)
             # iou = bbox_inner_iou(pred_bboxes[fg_mask], target_bboxes[fg_mask], xywh=False, CIoU=True, ratio=0.7)
             # iou = bbox_mpdiou(pred_bboxes[fg_mask], target_bboxes[fg_mask], xywh=False, mpdiou_hw=mpdiou_hw[fg_mask])
             # iou = bbox_inner_mpdiou(pred_bboxes[fg_mask], target_bboxes[fg_mask], xywh=False, mpdiou_hw=mpdiou_hw[fg_mask], ratio=0.7)
@@ -321,7 +327,9 @@ class v8DetectionLoss:
             self.assigner_aux = TaskAlignedAssigner(topk=13, num_classes=self.nc, alpha=0.5, beta=6.0)
             self.aux_loss_ratio = 0.25
         # self.assigner = ATSSAssigner(9, num_classes=self.nc)
-        self.bbox_loss = BboxLoss(m.reg_max - 1, use_dfl=self.use_dfl).to(device)
+        box_loss_type = h.get("box_loss_type", "ciou") if isinstance(h, dict) else getattr(h, "box_loss_type", "ciou")
+        box_loss_type = str(box_loss_type).lower()
+        self.bbox_loss = BboxLoss(m.reg_max - 1, use_dfl=self.use_dfl, box_loss_type=box_loss_type).to(device)
         self.proj = torch.arange(m.reg_max, dtype=torch.float, device=device)
         
         self.grid_cell_offset = 0.5

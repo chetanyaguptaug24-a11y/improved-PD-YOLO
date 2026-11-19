@@ -121,6 +121,13 @@ CFG_FRACTION_KEYS = (
     "conf",
     "iou",
     "fraction",
+    "weather_prob",
+    "fog_prob",
+    "rain_prob",
+    "shadow_prob",
+    "lowlight_prob",
+    "motionblur_prob",
+    "brightness_prob",
 )  # fraction floats 0.0 - 1.0
 CFG_INT_KEYS = (
     "epochs",
@@ -172,6 +179,7 @@ CFG_BOOL_KEYS = (
     "nms",
     "profile",
     "multi_scale",
+    "weather_aug",
 )
 
 

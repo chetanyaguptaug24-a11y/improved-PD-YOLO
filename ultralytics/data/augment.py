@@ -87,6 +87,89 @@ class Compose:
         return f"{self.__class__.__name__}({', '.join([f'{t}' for t in self.transforms])})"
 
 
+class WeatherAugmentation:
+    """Apply independent, pixel-only weather transformations to training images."""
+
+    MODES = ("fog", "rain", "shadows", "low_light", "motion_blur", "brightness")
+
+    def __init__(self, enabled=True, p=0.5, seed=0, **effect_probs):
+        self.enabled = bool(enabled)
+        self.p = float(p)
+        self.seed = int(seed)
+        self.rng = np.random.default_rng(self.seed)
+        aliases = {
+            "shadows": ("shadows_prob", "shadow_prob"),
+            "low_light": ("low_light_prob", "lowlight_prob"),
+            "motion_blur": ("motion_blur_prob", "motionblur_prob"),
+        }
+        self.effect_probs = {}
+        for mode in self.MODES:
+            keys = aliases.get(mode, (f"{mode}_prob",))
+            value = next((effect_probs[key] for key in keys if key in effect_probs), 0.15)
+            self.effect_probs[mode] = float(value)
+
+    def augment_weather(self, image_bgr, mode, seed=0):
+        """Apply one reproducible weather or illumination effect to a uint8 BGR image."""
+        if image_bgr is None or image_bgr.ndim != 3 or image_bgr.shape[2] != 3:
+            raise ValueError("image_bgr must be a non-empty three-channel image.")
+        image = np.asarray(image_bgr, dtype=np.uint8)
+        height, width = image.shape[:2]
+        rng = np.random.default_rng(seed)
+
+        if mode == "fog":
+            small = rng.uniform(0.35, 0.8, (max(2, height // 40), max(2, width // 40)))
+            veil = cv2.resize(small.astype(np.float32), (width, height))
+            veil = cv2.GaussianBlur(veil, (0, 0), max(1, min(height, width) / 14))
+            veil = (veil - veil.min()) / (np.ptp(veil) + 1e-6)
+            transmission = (0.78 - 0.12 * veil)[..., None]
+            result = image.astype(np.float32) * transmission + 220.0 * (1 - transmission)
+        elif mode == "rain":
+            overlay = np.zeros_like(image)
+            for _ in range(max(20, height * width // 1800)):
+                x = int(rng.integers(0, width))
+                y = int(rng.integers(0, height))
+                length = int(rng.integers(5, 13))
+                cv2.line(overlay, (x, y), (min(width - 1, x + 2), min(height - 1, y + length)),
+                         (190, 190, 190), 1, cv2.LINE_AA)
+            result = cv2.addWeighted(image, 0.92, overlay, 0.42, 0)
+        elif mode == "shadows":
+            mask = np.ones((height, width), dtype=np.float32)
+            polygon = np.array([[
+                (int(width * 0.12), int(height * 0.13)),
+                (int(width * 0.68), int(height * 0.07)),
+                (int(width * 0.46), int(height * 0.88)),
+                (int(width * 0.22), int(height * 0.74)),
+            ]], dtype=np.int32)
+            cv2.fillPoly(mask, polygon, float(rng.uniform(0.5, 0.82)))
+            mask = cv2.GaussianBlur(mask, (0, 0), max(1, min(height, width) / 30))
+            result = image.astype(np.float32) * mask[..., None]
+        elif mode == "low_light":
+            gamma = float(rng.uniform(1.25, 1.65))
+            result = 255 * np.power(image.astype(np.float32) / 255, gamma)
+        elif mode == "motion_blur":
+            kernel = np.zeros((5, 5), dtype=np.float32)
+            kernel[2, :] = 1 / 5
+            result = cv2.filter2D(image, -1, kernel)
+        elif mode == "brightness":
+            result = image.astype(np.float32) * float(rng.uniform(0.85, 1.15))
+        else:
+            raise ValueError(f"Unknown weather mode {mode!r}")
+        return np.clip(result, 0, 255).astype(np.uint8)
+
+    def __call__(self, labels):
+        if not self.enabled or float(self.rng.random()) >= self.p:
+            return labels
+        image = labels["img"]
+        enabled_modes = [
+            mode for mode in self.MODES
+            if float(self.rng.random()) < min(max(float(self.effect_probs[mode]), 0.0), 1.0)
+        ]
+        if enabled_modes:
+            mode = enabled_modes[int(self.rng.integers(0, len(enabled_modes)))]
+            labels["img"] = self.augment_weather(image, mode, seed=int(self.rng.integers(0, 1_000_000)))
+        return labels
+
+
 class BaseMixTransform:
     """
     Class for base mix (MixUp/Mosaic) transformations.
@@ -968,6 +1051,20 @@ class Format:
 
 def v8_transforms(dataset, imgsz, hyp, stretch=False):
     """Convert images to a size suitable for YOLOv8 training."""
+    effect_probs = {
+        "fog_prob": getattr(hyp, "fog_prob", 0.15),
+        "rain_prob": getattr(hyp, "rain_prob", 0.15),
+        "shadows_prob": getattr(hyp, "shadow_prob", 0.15),
+        "low_light_prob": getattr(hyp, "lowlight_prob", 0.15),
+        "motion_blur_prob": getattr(hyp, "motionblur_prob", 0.15),
+        "brightness_prob": getattr(hyp, "brightness_prob", 0.15),
+    }
+    weather = WeatherAugmentation(
+        enabled=getattr(hyp, "weather_aug", False),
+        p=getattr(hyp, "weather_prob", 0.5),
+        seed=getattr(hyp, "seed", 0),
+        **effect_probs,
+    )
     pre_transform = Compose(
         [
             Mosaic(dataset, imgsz=imgsz, p=hyp.mosaic),
@@ -999,6 +1096,7 @@ def v8_transforms(dataset, imgsz, hyp, stretch=False):
             RandomHSV(hgain=hyp.hsv_h, sgain=hyp.hsv_s, vgain=hyp.hsv_v),
             RandomFlip(direction="vertical", p=hyp.flipud),
             RandomFlip(direction="horizontal", p=hyp.fliplr, flip_idx=flip_idx),
+            weather,
         ]
     )  # transforms
 
