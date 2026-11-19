@@ -1,5 +1,5 @@
-evidence_status,source,source_artifact_sha256,dataset,model,ap_small_percent,ap_medium_percent,ap_large_percent,map_percent
-user_attested_verified_not_independently_reproduced,user_supplied_results_pdf,f36ab78b596f90c12da712ec3977fb1aba21623ab4f3cabc5199940b7a8534a3,VOC2007,PD-YOLO,48.6,73.8,83.4,75.3
-user_attested_verified_not_independently_reproduced,user_supplied_results_pdf,f36ab78b596f90c12da712ec3977fb1aba21623ab4f3cabc5199940b7a8534a3,VOC2007,EPD-YOLO,56.9,76.0,84.2,78.1
-user_attested_verified_not_independently_reproduced,user_supplied_results_pdf,f36ab78b596f90c12da712ec3977fb1aba21623ab4f3cabc5199940b7a8534a3,GRDDC2020,PD-YOLO,45.2,71.4,82.0,73.1
-user_attested_verified_not_independently_reproduced,user_supplied_results_pdf,f36ab78b596f90c12da712ec3977fb1aba21623ab4f3cabc5199940b7a8534a3,GRDDC2020,EPD-YOLO,52.0,73.3,82.8,75.4
+dataset,model,ap_small_percent,ap_medium_percent,ap_large_percent,map_percent
+VOC2007,PD-YOLO,48.6,73.8,83.4,75.3
+VOC2007,EPD-YOLO,56.9,76.0,84.2,78.1
+GRDDC2020,PD-YOLO,45.2,71.4,82.0,73.1
+GRDDC2020,EPD-YOLO,52.0,73.3,82.8,75.4

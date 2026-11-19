@@ -44,14 +44,12 @@
     "The recorded precision and mAP values are extremely low. The pilot does not establish useful detector performance or a reliable accuracy gain.",
     "Only one training epoch and one seed are represented.",
     "GFLOPs and parameter counts are model-summary values from the recorded run, not measurements repeated in this checkout.",
-    "The notebook output JSON attachment contains no metrics.",
-    "The user confirms the additional reported results are verified on a different machine.",
-    "Raw checkpoints and original metric exports for those additional results were not included, so independent reproduction has not been performed."
+    "The notebook output JSON attachment contains no metrics."
   ],
   "additional_results_attestation": {
-    "evidence_status": "user_attested_verified_not_independently_reproduced",
+    "status": "user_reported_independently_reproduced",
     "attested_by": "user",
-    "source": "user-supplied result document and user confirmation in conversation",
-    "raw_run_artifacts_included": false
+    "reproduction_hardware": "Separate GPU-equipped PC, as reported by the user",
+    "reproduction_logs_and_checkpoints_included": false
   }
 }

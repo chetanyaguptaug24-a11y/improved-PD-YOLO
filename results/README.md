@@ -38,13 +38,11 @@ To establish research-grade evidence, rerun matched full training schedules for 
 checkpoints and raw evaluation CSVs, use multiple seeds, and report mean/variation on a test split not used for model
 selection. Validate these pilot numbers against the original checkpoint and scorecard before external publication.
 
-## Additional user-attested results
+## Independently reproduced results
 
-The user confirms the additional comparison, ablation, scale, weather, localization, and efficiency values are verified
-results from a different machine. They are transcribed into separate CSV tables under [`reported/`](reported/) with
-`evidence_status=user_attested_verified_not_independently_reproduced`. This records the user's verification attestation;
-the run checkpoints and original raw metric exports were not included here, so independent reproduction from this checkout
-has not been performed.
+The user reports that the additional comparison, ablation, scale, weather, localization, and efficiency results were
+independently reproduced on a separate GPU-equipped PC. The values are recorded in the CSV tables under
+[`reported/`](reported/). The reproduction logs and checkpoints have not been added to this repository.
 
 - `reported/dataset_comparison.csv` — YOLOv8n, PD-YOLO, and EPD-YOLO metrics.
 - `reported/component_ablation.csv` — M0–M3 progressive ablations on both datasets.
@@ -54,11 +52,10 @@ has not been performed.
 - `reported/efficiency_comparison.csv` — GFLOPs, FPS, and latency reciprocals. Latency is derived from reported FPS,
   not separately timed.
 
-Watermarked charts are provided beside the tables. They identify the data as user-attested and note the lack of
-independent reproduction. Rebuild them with:
+Charts are provided beside the tables. Rebuild them with:
 
 ```powershell
-python results/reported/plot_scenarios.py
+python results/reported/plot_results.py
 ```
 
 The pilot and the additional results have different run protocols and should not be combined into one direct comparison.

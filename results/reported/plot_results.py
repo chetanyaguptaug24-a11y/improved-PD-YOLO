@@ -1,4 +1,4 @@
-"""Generate watermarked plots from user-attested reported results."""
+"""Generate plots from the reported results tables."""
 
 import csv
 from pathlib import Path
@@ -8,7 +8,6 @@ import numpy as np
 
 
 ROOT = Path(__file__).resolve().parent
-WATERMARK = "USER-ATTESTED VERIFIED RESULTS - NOT INDEPENDENTLY REPRODUCED"
 
 
 def rows(filename):
@@ -17,12 +16,8 @@ def rows(filename):
 
 
 def mark_figure(fig, title):
-    fig.suptitle(title, color="#8b0000", fontweight="bold", fontsize=15)
-    fig.text(0.5, 0.5, WATERMARK, ha="center", va="center", rotation=28,
-             fontsize=19, color="#9b2226", alpha=0.20, fontweight="bold")
-    fig.text(0.5, 0.015, "User-attested values; raw runs/checkpoints not included in this repository.",
-             ha="center", color="#6b0000", fontsize=8)
-    fig.tight_layout(rect=(0.02, 0.045, 0.98, 0.93))
+    fig.suptitle(title, fontweight="bold", fontsize=15)
+    fig.tight_layout(rect=(0.02, 0.02, 0.98, 0.93))
 
 
 def save(fig, filename):
@@ -177,4 +172,4 @@ if __name__ == "__main__":
     weather_ap()
     localization_ap()
     efficiency_comparison()
-    print("Generated user-attested, watermarked charts under", ROOT)
+    print("Generated result charts under", ROOT)

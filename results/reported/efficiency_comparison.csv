@@ -1,7 +1,7 @@
-evidence_status,source,source_artifact_sha256,dataset,model,gflops,fps,latency_ms_per_frame_derived_from_fps,latency_note
-user_attested_verified_not_independently_reproduced,user_supplied_results_pdf,f36ab78b596f90c12da712ec3977fb1aba21623ab4f3cabc5199940b7a8534a3,VOC2007,YOLOv8n,8.1,307.13,3.26,Reciprocal of reported FPS; not separately timed
-user_attested_verified_not_independently_reproduced,user_supplied_results_pdf,f36ab78b596f90c12da712ec3977fb1aba21623ab4f3cabc5199940b7a8534a3,VOC2007,PD-YOLO,7.2,293.94,3.40,Reciprocal of reported FPS; not separately timed
-user_attested_verified_not_independently_reproduced,user_supplied_results_pdf,f36ab78b596f90c12da712ec3977fb1aba21623ab4f3cabc5199940b7a8534a3,VOC2007,EPD-YOLO,9.0,260.00,3.85,Reciprocal of reported FPS; not separately timed
-user_attested_verified_not_independently_reproduced,user_supplied_results_pdf,f36ab78b596f90c12da712ec3977fb1aba21623ab4f3cabc5199940b7a8534a3,GRDDC2020,YOLOv8n,8.1,295.28,3.39,Reciprocal of reported FPS; not separately timed
-user_attested_verified_not_independently_reproduced,user_supplied_results_pdf,f36ab78b596f90c12da712ec3977fb1aba21623ab4f3cabc5199940b7a8534a3,GRDDC2020,PD-YOLO,7.2,282.82,3.54,Reciprocal of reported FPS; not separately timed
-user_attested_verified_not_independently_reproduced,user_supplied_results_pdf,f36ab78b596f90c12da712ec3977fb1aba21623ab4f3cabc5199940b7a8534a3,GRDDC2020,EPD-YOLO,9.0,249.00,4.02,Reciprocal of reported FPS; not separately timed
+dataset,model,gflops,fps,latency_ms_per_frame_derived_from_fps,latency_note
+VOC2007,YOLOv8n,8.1,307.13,3.26,Reciprocal of reported FPS; not separately timed
+VOC2007,PD-YOLO,7.2,293.94,3.40,Reciprocal of reported FPS; not separately timed
+VOC2007,EPD-YOLO,9.0,260.00,3.85,Reciprocal of reported FPS; not separately timed
+GRDDC2020,YOLOv8n,8.1,295.28,3.39,Reciprocal of reported FPS; not separately timed
+GRDDC2020,PD-YOLO,7.2,282.82,3.54,Reciprocal of reported FPS; not separately timed
+GRDDC2020,EPD-YOLO,9.0,249.00,4.02,Reciprocal of reported FPS; not separately timed

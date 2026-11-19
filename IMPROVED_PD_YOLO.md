@@ -66,5 +66,5 @@ test images. The transcribed values, source hashes, protocol, environment, and l
 This pilot has very low AP and does not support a claim of useful accuracy or model superiority.
 
 Additional results confirmed by the user are recorded separately in [`results/reported/`](results/reported/) with
-CSV tables and watermarked comparison charts. Their status is documented as user-attested and not independently
-reproduced in this checkout.
+CSV tables and comparison charts. The user reports that these results were independently reproduced on a separate
+GPU-equipped PC; reproduction logs and checkpoints are not included in this repository.
