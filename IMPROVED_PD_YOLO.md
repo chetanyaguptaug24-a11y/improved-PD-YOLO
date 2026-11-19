@@ -58,3 +58,13 @@ python evaluate_improved_pd_yolo.py --data ultralytics/cfg/datasets/Bump.yaml --
 ```
 
 Run `pytest tests/test_improved_pd_yolo.py -q` after Windows application-control permits loading the PyTorch runtime.
+
+## Supplied external-machine results
+
+The supplied notebook includes a measured, one-epoch CPU pilot for baseline PD-YOLO versus PD-YOLO + P2 on 67 VOC2007
+test images. The transcribed values, source hashes, protocol, environment, and limitations are in [`results/README.md`](results/README.md).
+This pilot has very low AP and does not support a claim of useful accuracy or model superiority.
+
+Additional results confirmed by the user are recorded separately in [`results/reported/`](results/reported/) with
+CSV tables and watermarked comparison charts. Their status is documented as user-attested and not independently
+reproduced in this checkout.

@@ -1,0 +1,57 @@
+{
+  "experiment_id": "voc2007_p2_one_epoch_pilot",
+  "record_type": "transcribed_external_machine_run",
+  "evidence_status": "not_independently_reproduced",
+  "source_artifacts": [
+    {
+      "path": "Improved_PD_YOLO_Experiments.ipynb",
+      "sha256": "3bf4662682318b96ec5c944ac874d68fd4fcb36d1cede7249d70d3fd6562617f",
+      "relevant_content": "Embedded test-evaluation console output, model summaries, and the experiment protocol."
+    },
+    {
+      "path": "Improved_PD_YOLO_Complete_17_Pages (1).pdf",
+      "sha256": "f36ab78b596f90c12da712ec3977fb1aba21623ab4f3cabc5199940b7a8534a3",
+      "relevant_content": "Source document containing the additional comparison, ablation, scale, weather, localization, and efficiency tables."
+    }
+  ],
+  "environment": {
+    "ultralytics": "8.1.9",
+    "python": "3.11.9",
+    "pytorch": "2.6.0+cpu",
+    "hardware": "AMD Ryzen AI 7 350 with Radeon 860M; CPU execution",
+    "cuda": false
+  },
+  "evaluation_protocol": {
+    "dataset": "VOC2007_Pothole",
+    "split": "test",
+    "test_images": 67,
+    "ground_truth_instances": 171,
+    "image_size": 640,
+    "batch_size": 4,
+    "workers": 0,
+    "optimizer": "SGD",
+    "seed": 0,
+    "training_epochs_per_model": 1,
+    "training_initialization": "from scratch, as stated in the notebook protocol",
+    "evaluation_confidence_threshold": "Ultralytics validation default; notebook did not override it",
+    "source_checkpoint_labels": [
+      "runs/train/exp16/weights/best.pt",
+      "runs/train/p2_comparison_pilot/weights/best.pt"
+    ]
+  },
+  "limitations": [
+    "The notebook output is the available evidence; the source checkpoints and the CSV written on the other machine were not supplied.",
+    "The recorded precision and mAP values are extremely low. The pilot does not establish useful detector performance or a reliable accuracy gain.",
+    "Only one training epoch and one seed are represented.",
+    "GFLOPs and parameter counts are model-summary values from the recorded run, not measurements repeated in this checkout.",
+    "The notebook output JSON attachment contains no metrics.",
+    "The user confirms the additional reported results are verified on a different machine.",
+    "Raw checkpoints and original metric exports for those additional results were not included, so independent reproduction has not been performed."
+  ],
+  "additional_results_attestation": {
+    "evidence_status": "user_attested_verified_not_independently_reproduced",
+    "attested_by": "user",
+    "source": "user-supplied result document and user confirmation in conversation",
+    "raw_run_artifacts_included": false
+  }
+}

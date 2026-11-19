@@ -1,0 +1,9 @@
+evidence_status,source,source_artifact_sha256,dataset,configuration,p2,siou,weather_augmentation,precision_percent,recall_percent,map50_percent,gflops,fps
+user_attested_verified_not_independently_reproduced,user_supplied_results_pdf,f36ab78b596f90c12da712ec3977fb1aba21623ab4f3cabc5199940b7a8534a3,VOC2007,M0,0,0,0,75.9,66.6,75.3,7.2,293.94
+user_attested_verified_not_independently_reproduced,user_supplied_results_pdf,f36ab78b596f90c12da712ec3977fb1aba21623ab4f3cabc5199940b7a8534a3,VOC2007,M1,1,0,0,76.7,68.1,76.8,9.0,263.00
+user_attested_verified_not_independently_reproduced,user_supplied_results_pdf,f36ab78b596f90c12da712ec3977fb1aba21623ab4f3cabc5199940b7a8534a3,VOC2007,M2,1,1,0,77.5,69.0,77.5,9.0,261.00
+user_attested_verified_not_independently_reproduced,user_supplied_results_pdf,f36ab78b596f90c12da712ec3977fb1aba21623ab4f3cabc5199940b7a8534a3,VOC2007,M3,1,1,1,78.0,70.0,78.1,9.0,260.00
+user_attested_verified_not_independently_reproduced,user_supplied_results_pdf,f36ab78b596f90c12da712ec3977fb1aba21623ab4f3cabc5199940b7a8534a3,GRDDC2020,M0,0,0,0,79.2,65.6,73.1,7.2,282.82
+user_attested_verified_not_independently_reproduced,user_supplied_results_pdf,f36ab78b596f90c12da712ec3977fb1aba21623ab4f3cabc5199940b7a8534a3,GRDDC2020,M1,1,0,0,79.5,66.7,74.0,9.0,252.00
+user_attested_verified_not_independently_reproduced,user_supplied_results_pdf,f36ab78b596f90c12da712ec3977fb1aba21623ab4f3cabc5199940b7a8534a3,GRDDC2020,M2,1,1,0,79.8,67.3,74.7,9.0,250.00
+user_attested_verified_not_independently_reproduced,user_supplied_results_pdf,f36ab78b596f90c12da712ec3977fb1aba21623ab4f3cabc5199940b7a8534a3,GRDDC2020,M3,1,1,1,80.1,68.2,75.4,9.0,249.00
