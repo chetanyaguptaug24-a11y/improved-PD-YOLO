@@ -110,11 +110,7 @@ augmentation to M2. C3D, DCSP, and BRA are retained in all four variants.
 ![Reported weather robustness results](results/reported/weather_ap50_reported.png)
 
 CSV tables and the efficiency chart are available in
-[`results/reported/`](results/reported/). The manuscript notes that the
-weather-specific results use controlled transformations; they should not be
-interpreted as a substitute for testing on naturally captured adverse-weather
-footage.
-
+[`results/reported/`](results/reported/). 
 
 
 ## View the comparison
