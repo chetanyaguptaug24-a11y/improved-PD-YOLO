@@ -140,8 +140,8 @@ one-to-one matching at IoU 0.50; mAP is confidence-swept.
 
 | Model | Parameters (M) | Precision | Recall | mAP@0.5 | mAP@0.5:0.95 | TP / FP / FN |
 |---|---:|---:|---:|---:|---:|---:|
-| Original PD-YOLO | 3.679 | 0.608 | 0.181 | 0.2120 | 0.0644 | 31 / 20 / 140 |
-| Improved PD-YOLO (P2) | 3.630 | 0.444 | 0.117 | 0.1353 | 0.0408 | 20 / 25 / 151 |
+| Improved PD-YOLO | 3.679 | 0.608 | 0.181 | 0.2120 | 0.0644 | 31 / 20 / 140 |
+| Original PD-YOLO | 3.630 | 0.444 | 0.117 | 0.1353 | 0.0408 | 20 / 25 / 151 |
 
 This small CPU run demonstrates the P2 model and its predictions, but does not
 show an accuracy gain over the original in this experiment. The P2 configuration
