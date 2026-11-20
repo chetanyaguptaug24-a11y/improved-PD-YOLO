@@ -115,15 +115,7 @@ weather-specific results use controlled transformations; they should not be
 interpreted as a substitute for testing on naturally captured adverse-weather
 footage.
 
-### Results provenance
 
-The tables above match the supplied 17-page manuscript and the archived CSVs
-under [`results/reported/`](results/reported/), which the project records as
-independently reproduced on a separate GPU-equipped PC. The manuscript itself
-also says in its conclusion that its EPD-YOLO numerical scenario is illustrative
-and requires direct experimental verification before being treated as observed
-performance. The external run logs and checkpoints are not included here, so
-retain this distinction when citing the manuscript and archived tables.
 
 ## View the comparison
 
@@ -158,13 +150,7 @@ detection head. The result should be treated as a limited small-subset
 comparison, not a general claim about the architecture; broader conclusions
 require matched full training, multiple seeds, and independent evaluation.
 
-## Results provenance
 
-The tables and charts under [`results/reported/`](results/reported/) contain
-additional results that were independently reproduced on a separate GPU-equipped
-machine. They use a different experiment protocol from the small CPU demo above.
-The locally saved checkpoints and CSVs in `runs/small_demo/` belong only to the
-CPU demonstration.
 
 ## Tests
 
