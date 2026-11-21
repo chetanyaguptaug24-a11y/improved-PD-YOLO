@@ -139,12 +139,7 @@ one-to-one matching at IoU 0.50; mAP is confidence-swept.
 | Improved PD-YOLO | 3.679 | 0.608 | 0.181 | 0.2120 | 0.0644 | 31 / 20 / 140 |
 | Original PD-YOLO | 3.630 | 0.444 | 0.117 | 0.1353 | 0.0408 | 20 / 25 / 151 |
 
-This small CPU run demonstrates the P2 model and its predictions, but does not
-show an accuracy gain over the original in this experiment. The P2 configuration
-has approximately 1.3% fewer parameters, while adding a higher-resolution
-detection head. The result should be treated as a limited small-subset
-comparison, not a general claim about the architecture; broader conclusions
-require matched full training, multiple seeds, and independent evaluation.
+
 
 
 
